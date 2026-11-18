@@ -1,0 +1,483 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pathway | Internship Opportunities 🌸</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #F8F5FA;
+            color: #30343B;
+        }
+
+        header {
+            background: #252B30;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 700;
+            color: #70C7B8;
+        }
+
+        .logo span {
+            color: #F4A9C6;
+        }
+
+        nav {
+            display: flex;
+            gap: 22px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #70C7B8;
+        }
+
+        .container {
+            width: 88%;
+            max-width: 1200px;
+            margin: 35px auto;
+        }
+
+        .welcome {
+            background: linear-gradient(120deg, #DDF4EF, #FCE5EF, #E9E5FA);
+            padding: 35px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+
+        .welcome h1 {
+            margin-bottom: 10px;
+            font-size: 27px;
+        }
+
+        .welcome p {
+            color: #62636B;
+            font-size: 14px;
+        }
+
+        .search-box {
+            background: white;
+            padding: 22px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.04);
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 13px 16px;
+            border: 1px solid #E5DFEA;
+            border-radius: 25px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .search-box input:focus {
+            border-color: #70C7B8;
+        }
+
+        .section-title {
+            margin-bottom: 20px;
+            font-size: 21px;
+        }
+
+        .opportunities {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 22px;
+        }
+
+        .opportunity-card {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.04);
+            transition: 0.3s;
+        }
+
+        .opportunity-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .company-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .opportunity-card h2 {
+            font-size: 19px;
+            margin-bottom: 5px;
+        }
+
+        .company {
+            color: #70AFA4;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 14px;
+        }
+
+        .description {
+            font-size: 13px;
+            line-height: 1.8;
+            color: #777;
+            margin-bottom: 16px;
+        }
+
+        .details {
+            background: #F8F5FA;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 12px;
+            line-height: 2;
+            margin-bottom: 18px;
+        }
+
+        /* Document upload section */
+        .upload-heading {
+            font-size: 15px;
+            margin-bottom: 12px;
+            color: #252B30;
+        }
+
+        .upload-instructions {
+            font-size: 12px;
+            color: #777;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .document-upload {
+            background: #FCEFF5;
+            border: 1px dashed #F4A9C6;
+            border-radius: 13px;
+            padding: 15px;
+            margin-bottom: 12px;
+        }
+
+        .document-upload:nth-of-type(even) {
+            background: #EDF9F6;
+            border-color: #70C7B8;
+        }
+
+        .document-upload label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 9px;
+            color: #30343B;
+        }
+
+        .document-upload input {
+            width: 100%;
+            font-size: 12px;
+            color: #555;
+        }
+
+        .document-help {
+            display: block;
+            font-size: 11px;
+            color: #777;
+            margin-top: 8px;
+        }
+
+        .apply-button {
+            display: inline-block;
+            width: 100%;
+            background: #70C7B8;
+            color: #252B30;
+            padding: 12px 23px;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 8px;
+        }
+
+        .apply-button:hover {
+            background: #F4A9C6;
+        }
+
+        .apply-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .empty-message {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 15px;
+            color: #777;
+            grid-column: 1 / -1;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #888;
+            font-size: 12px;
+        }
+
+        @media (max-width: 700px) {
+            .opportunities {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                width: 92%;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .welcome {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header>
+        <div class="logo">Pathway<span> ✿</span></div>
+
+        <nav>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('logout') }}">Logout ♡</a>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <!-- Welcome banner -->
+        <div class="welcome">
+            <h1>Find Your Dream Internship! 🌷</h1>
+
+            <p>
+                Hello, {{ session.get('student_name') }}!
+                Explore opportunities, discover companies and take
+                the next step towards your future career.
+            </p>
+        </div>
+
+        <!-- Search box -->
+        <div class="search-box">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="🔍 Search by company or internship position..."
+                onkeyup="searchOpportunities()"
+            >
+        </div>
+
+        <!-- Opportunity cards -->
+        <h2 class="section-title">✨ Available Opportunities</h2>
+
+        <div class="opportunities" id="opportunityList">
+
+            {% for opportunity in opportunities %}
+
+            <div class="opportunity-card">
+
+                <div class="company-icon">🏢</div>
+
+                <h2>{{ opportunity.company_name }}</h2>
+
+                <div class="company">
+                    💼 {{ opportunity.position }}
+                </div>
+
+                <p class="description">
+                    {{ opportunity.description }}
+                </p>
+
+                <div class="details">
+                    📍 Location: {{ opportunity.location }}<br>
+                    📅 Deadline: {{ opportunity.deadline }}<br>
+                    🎓 Requirements: {{ opportunity.requirements or 'Not specified' }}
+                </div>
+
+                <!-- Application form -->
+                <form
+                    action="{{ url_for('apply', opportunity_id=opportunity.id) }}"
+                    method="POST"
+                    enctype="multipart/form-data"
+                >
+
+                    <h3 class="upload-heading">
+                        📂 Required Application Documents
+                    </h3>
+
+                    <p class="upload-instructions">
+                        Please upload all four documents before submitting
+                        your application. All documents are required.
+                    </p>
+
+                    <!-- CV -->
+                    <div class="document-upload">
+
+                        <label for="cv-{{ opportunity.id }}">
+                            📄 Curriculum Vitae (CV)
+                        </label>
+
+                        <input
+                            type="file"
+                            id="cv-{{ opportunity.id }}"
+                            name="cv"
+                            accept=".pdf,.doc,.docx"
+                            required
+                        >
+
+                        <span class="document-help">
+                            Upload your latest CV.
+                        </span>
+
+                    </div>
+
+                    <!-- ID document -->
+                    <div class="document-upload">
+
+                        <label for="id-{{ opportunity.id }}">
+                            🪪 Identity Document (ID)
+                        </label>
+
+                        <input
+                            type="file"
+                            id="id-{{ opportunity.id }}"
+                            name="id_document"
+                            accept=".pdf,.doc,.docx"
+                            required
+                        >
+
+                        <span class="document-help">
+                            Upload a clear copy of your ID document.
+                        </span>
+
+                    </div>
+
+                    <!-- Academic record -->
+                    <div class="document-upload">
+
+                        <label for="academic-{{ opportunity.id }}">
+                            🎓 Full Academic Record
+                        </label>
+
+                        <input
+                            type="file"
+                            id="academic-{{ opportunity.id }}"
+                            name="academic_record"
+                            accept=".pdf,.doc,.docx"
+                            required
+                        >
+
+                        <span class="document-help">
+                            Upload your complete academic record.
+                        </span>
+
+                    </div>
+
+                    <!-- Matric certificate -->
+                    <div class="document-upload">
+
+                        <label for="matric-{{ opportunity.id }}">
+                            📜 Matric Certificate
+                        </label>
+
+                        <input
+                            type="file"
+                            id="matric-{{ opportunity.id }}"
+                            name="matric_certificate"
+                            accept=".pdf,.doc,.docx"
+                            required
+                        >
+
+                        <span class="document-help">
+                            Upload a copy of your matric certificate.
+                        </span>
+
+                    </div>
+
+                    <p class="upload-instructions">
+                        Accepted formats: PDF, DOC and DOCX.
+                        Maximum combined upload size: 20 MB.
+                    </p>
+
+                    <button type="submit" class="apply-button">
+                        Submit Application ♡
+                    </button>
+
+                </form>
+
+            </div>
+
+            {% else %}
+
+            <div class="empty-message">
+                <h2>🌸 No opportunities available yet</h2>
+                <p>New internship opportunities will appear here soon.</p>
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    <footer>
+        Made with ♡ by Pathway | Your future starts here 🌷
+    </footer>
+
+    <script>
+        function searchOpportunities() {
+
+            let input = document.getElementById("searchInput")
+                .value.toLowerCase();
+
+            let cards = document.querySelectorAll(".opportunity-card");
+
+            cards.forEach(function(card) {
+
+                let content = card.innerText.toLowerCase();
+
+                if (content.includes(input)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+
+            });
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,328 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pathway | Your Future Starts Here</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #F1F2F2;
+            color: #263238;
+        }
+
+        /* Navigation */
+        header {
+            background: #252B30;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 29px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #70C7B8;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #E5EAEA;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #70C7B8;
+        }
+
+        /* Hero section */
+        .hero {
+            min-height: 470px;
+            background:
+                linear-gradient(
+                    rgba(25, 32, 37, 0.78),
+                    rgba(25, 32, 37, 0.90)
+                ),
+                url("https://images.unsplash.com/photo-1497366754035-f200968a6e72")
+                center/cover no-repeat;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 55px 20px;
+            color: white;
+        }
+
+        .welcome {
+            color: #70C7B8;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 {
+            font-size: 46px;
+            max-width: 750px;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .hero-description {
+            color: #D5DEDF;
+            font-size: 16px;
+            margin-bottom: 38px;
+            line-height: 1.6;
+        }
+
+        /* Feature cards */
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .feature {
+            width: 145px;
+            padding: 19px 12px;
+            background: rgba(255, 255, 255, 0.09);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 14px;
+            transition: 0.3s;
+        }
+
+        .feature:hover {
+            background: rgba(112, 199, 184, 0.18);
+            transform: translateY(-5px);
+        }
+
+        .symbol {
+            font-size: 29px;
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            color: #FFFFFF;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* Application overview */
+        .overview {
+            max-width: 1000px;
+            margin: 38px auto;
+            padding: 32px 38px;
+            background: #E2E5E5;
+            border: 1px solid #D1D7D7;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(37, 43, 48, 0.08);
+            text-align: center;
+        }
+
+        .overview-label {
+            color: #397F76;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 9px;
+        }
+
+        .overview h2 {
+            color: #252B30;
+            font-size: 27px;
+            margin-bottom: 12px;
+        }
+
+        .overview p {
+            max-width: 750px;
+            margin: 0 auto;
+            color: #59666B;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .overview-button {
+            background: #397F76;
+            color: white;
+            border: none;
+            padding: 13px 30px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .overview-button:hover {
+            background: #28665F;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(57, 127, 118, 0.25);
+        }
+
+        /* Footer */
+        footer {
+            background: #252B30;
+            color: #D8DEDF;
+            text-align: center;
+            padding: 18px;
+            font-size: 13px;
+        }
+
+        /* Mobile design */
+        @media (max-width: 650px) {
+            header {
+                flex-direction: column;
+                gap: 18px;
+            }
+
+            nav {
+                gap: 16px;
+            }
+
+            nav a {
+                font-size: 12px;
+            }
+
+            .hero {
+                min-height: 500px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .features {
+                gap: 12px;
+            }
+
+            .feature {
+                width: 125px;
+            }
+
+            .overview {
+                margin: 25px 15px;
+                padding: 28px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header>
+        <div class="logo">Pathway<span>.</span></div>
+
+      <nav>
+    <a href="{{ url_for('home') }}">Home</a>
+    <a href="#overview">Overview</a>
+    <a href="#">Opportunities</a>
+
+    {% if session.get('student_id') %}
+        <a href="{{ url_for('logout') }}">Logout</a>
+    {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+    {% endif %}
+</nav>  
+    </header>
+
+    <!-- Welcome section -->
+    <section class="hero">
+
+     {% if session.get('student_id') %}
+    <div class="welcome">
+        Welcome back, {{ session.get('student_name') }}!
+    </div>
+{% else %}
+    <div class="welcome">
+        Welcome to Pathway
+    </div>
+{% endif %}   
+
+        <h1>Find your path to the working world.</h1>
+
+        <p class="hero-description">
+            Your journey from student to professional starts here.
+            Discover opportunities and take your next step.
+        </p>
+
+        <!-- Feature icons -->
+        <div class="features">
+
+            <div class="feature">
+                <div class="symbol">💼</div>
+                <p>Opportunities</p>
+            </div>
+
+            <div class="feature">
+                <div class="symbol">📄</div>
+                <p>Applications</p>
+            </div>
+
+            <div class="feature">
+                <div class="symbol">📅</div>
+                <p>Deadlines</p>
+            </div>
+
+            <div class="feature">
+                <div class="symbol">📊</div>
+                <p>Progress</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Application overview -->
+    <section class="overview" id="overview">
+
+        <div class="overview-label">Your journey starts here</div>
+
+        <h2>Application Overview</h2>
+
+        <p>
+            Pathway helps students discover internship opportunities,
+            manage applications, track important deadlines and monitor
+            their placement progress — all in one convenient place.
+        </p>
+
+     <a href="{{ url_for('register') }}" class="overview-button">
+    Get Started
+</a>   
+
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        © 2026 Pathway. Your future, your journey.
+    </footer>
+
+</body>
+</html>

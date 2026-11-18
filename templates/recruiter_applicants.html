@@ -1,0 +1,412 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Applicants | Pathway</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #F6F7FB;
+            color: #252B30;
+        }
+
+        .header {
+            background: #252B30;
+            color: white;
+            padding: 22px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: #70C7B8;
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .back-link:hover {
+            color: #70C7B8;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1150px;
+            margin: 40px auto;
+        }
+
+        .heading {
+            margin-bottom: 25px;
+        }
+
+        .heading h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .heading p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .summary {
+            background: linear-gradient(120deg, #70C7B8, #B8E8DE);
+            padding: 22px 28px;
+            border-radius: 18px;
+            margin-bottom: 30px;
+            display: inline-block;
+            min-width: 220px;
+        }
+
+        .summary h2 {
+            font-size: 30px;
+        }
+
+        .summary p {
+            font-size: 13px;
+        }
+
+        .applicant-card {
+            background: white;
+            border-radius: 18px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .student-name {
+            font-size: 19px;
+            font-weight: 600;
+        }
+
+        .position {
+            color: #70AFA3;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 15px;
+            margin-bottom: 18px;
+        }
+
+        .detail {
+            background: #F8F9FC;
+            padding: 13px;
+            border-radius: 12px;
+            font-size: 12px;
+            overflow-wrap: anywhere;
+        }
+
+        .detail strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #777;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            background: #FFF0C9;
+            color: #916B19;
+            height: fit-content;
+        }
+
+        .status.accepted {
+            background: #DDF5E8;
+            color: #27804C;
+        }
+
+        .status.rejected {
+            background: #FFE0E0;
+            color: #B63D3D;
+        }
+
+        .status.under-review {
+            background: #E8E0FF;
+            color: #7053A8;
+        }
+
+        .response {
+            background: #F5F0FF;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 13px;
+            margin-top: 15px;
+            overflow-wrap: anywhere;
+        }
+
+        .response strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .documents {
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 1px solid #eee;
+        }
+
+        .documents h3 {
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .document-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .document-links a {
+            display: inline-block;
+            background: #E1F5EF;
+            color: #397F76;
+            padding: 9px 13px;
+            border-radius: 9px;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .document-links a:hover {
+            background: #70C7B8;
+            color: white;
+        }
+
+        .no-document {
+            color: #999;
+            font-size: 12px;
+        }
+
+        .empty {
+            background: white;
+            text-align: center;
+            padding: 55px 20px;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.04);
+        }
+
+        .empty .emoji {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .empty h2 {
+            margin-bottom: 10px;
+        }
+
+        .empty p {
+            color: #888;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            .header {
+                padding: 18px 5%;
+            }
+
+            .container {
+                width: 92%;
+                margin: 25px auto;
+            }
+
+            .heading h1 {
+                font-size: 23px;
+            }
+
+            .applicant-card {
+                padding: 18px;
+            }
+
+            .document-links {
+                flex-direction: column;
+            }
+
+            .document-links a {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="logo">✦ Path<span>way</span></div>
+
+        <a href="{{ url_for('recruiter_dashboard') }}" class="back-link">
+            ← Back to Dashboard
+        </a>
+    </header>
+
+    <main class="container">
+
+        <div class="heading">
+            <h1>Student Applicants 👩‍🎓</h1>
+            <p>View students who have applied for your opportunities.</p>
+        </div>
+
+        <div class="summary">
+            <h2>{{ applicants|length }}</h2>
+            <p>Total Applications Received</p>
+        </div>
+
+        {% if applicants %}
+
+            {% for applicant in applicants %}
+
+                {% set status_class = applicant.status|lower|replace(' ', '-') %}
+
+                <div class="applicant-card">
+
+                    <div class="card-top">
+                        <div>
+                            <div class="student-name">
+                                {{ applicant.full_name }}
+                            </div>
+
+                            <div class="position">
+                                Applied for: {{ applicant.position }}
+                            </div>
+                        </div>
+
+                        <span class="status {{ status_class }}">
+                            {{ applicant.status }}
+                        </span>
+                    </div>
+
+                    <div class="details">
+
+                        <div class="detail">
+                            <strong>🎓 Student Number</strong>
+                            {{ applicant.student_number }}
+                        </div>
+
+                        <div class="detail">
+                            <strong>📧 Email Address</strong>
+                            {{ applicant.email }}
+                        </div>
+
+                        <div class="detail">
+                            <strong>🏢 Company</strong>
+                            {{ applicant.company_name }}
+                        </div>
+
+                        <div class="detail">
+                            <strong>📅 Application Date</strong>
+                            {{ applicant.application_date }}
+                        </div>
+
+                    </div>
+
+                    {% if applicant.company_response %}
+                        <div class="response">
+                            <strong>💬 Recruiter Message</strong>
+                            {{ applicant.company_response }}
+                        </div>
+                    {% endif %}
+
+                    <div class="documents">
+
+                        <h3>📁 Student Documents</h3>
+
+                        <div class="document-links">
+
+                            {% if applicant.cv_filename %}
+                                <a href="{{ url_for('download_cv', application_id=applicant.id) }}">
+                                    📄 Download CV
+                                </a>
+                            {% endif %}
+
+                            {% if applicant.id_filename %}
+                                <a href="{{ url_for('download_applicant_document', application_id=applicant.id, document_type='id') }}">
+                                    🪪 Download ID
+                                </a>
+                            {% endif %}
+
+                            {% if applicant.academic_record_filename %}
+                                <a href="{{ url_for('download_applicant_document', application_id=applicant.id, document_type='academic_record') }}">
+                                    🎓 Download Academic Record
+                                </a>
+                            {% endif %}
+
+                            {% if applicant.matric_certificate_filename %}
+                                <a href="{{ url_for('download_applicant_document', application_id=applicant.id, document_type='matric_certificate') }}">
+                                    📜 Download Matric Certificate
+                                </a>
+                            {% endif %}
+
+                            {% if not applicant.cv_filename
+                                  and not applicant.id_filename
+                                  and not applicant.academic_record_filename
+                                  and not applicant.matric_certificate_filename %}
+
+                                <span class="no-document">
+                                    No documents available.
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty">
+                <div class="emoji">🌸</div>
+                <h2>No applicants yet</h2>
+                <p>
+                    When students apply for your opportunities,
+                    their details will appear here.
+                </p>
+            </div>
+
+        {% endif %}
+
+    </main>
+
+</body>
+</html>

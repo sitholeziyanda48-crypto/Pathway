@@ -1,0 +1,499 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Recruiter Dashboard | Pathway</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #F6F7FB;
+            color: #252B30;
+        }
+
+        .sidebar {
+            width: 250px;
+            min-height: 100vh;
+            background: #252B30;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 30px 20px;
+            color: white;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: 700;
+            color: #70C7B8;
+            margin-bottom: 8px;
+        }
+
+        .sidebar-subtitle {
+            font-size: 12px;
+            color: #B8C6C5;
+            margin-bottom: 45px;
+        }
+
+        .menu-label {
+            color: #91A09F;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .menu-item {
+            display: block;
+            padding: 13px 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            color: #E2E5E5;
+            text-decoration: none;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+
+        .menu-item.active {
+            background: #397F76;
+            color: white;
+        }
+
+        .menu-item:hover {
+            background: #34464A;
+        }
+
+        .sidebar-bottom {
+            position: absolute;
+            bottom: 30px;
+            left: 20px;
+            right: 20px;
+        }
+
+        .logout {
+            display: block;
+            padding: 12px;
+            text-align: center;
+            background: #FCE8F0;
+            color: #A34F72;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 35px 45px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+            gap: 15px;
+        }
+
+        .topbar h1 {
+            font-size: 25px;
+        }
+
+        .topbar p {
+            font-size: 13px;
+            color: #818B91;
+            margin-top: 5px;
+        }
+
+        .profile {
+            background: white;
+            padding: 11px 17px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .welcome-card {
+            background: linear-gradient(120deg, #397F76, #70C7B8);
+            color: white;
+            padding: 35px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 10px 25px rgba(57,127,118,0.15);
+            margin-bottom: 30px;
+        }
+
+        .welcome-card h2 {
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+        .welcome-card p {
+            font-size: 13px;
+            line-height: 1.8;
+            max-width: 550px;
+        }
+
+        .welcome-icon {
+            font-size: 65px;
+        }
+
+        .section-title {
+            font-size: 19px;
+            margin-bottom: 18px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 25px;
+            border-radius: 17px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.04);
+            border: 1px solid #F0EFF5;
+            transition: 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .feature-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        .feature-link:hover {
+            border-color: #70C7B8;
+            box-shadow: 0 8px 22px rgba(112,199,184,0.2);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 14px;
+            font-size: 23px;
+            margin-bottom: 17px;
+        }
+
+        .mint {
+            background: #E1F5EF;
+        }
+
+        .pink {
+            background: #FCE8F0;
+        }
+
+        .purple {
+            background: #EEE8FC;
+        }
+
+        .yellow {
+            background: #FFF3D9;
+        }
+
+        .feature-card h3 {
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            color: #818B91;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .coming-soon {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 5px 10px;
+            background: #F1F2F6;
+            color: #747E85;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .notice {
+            margin-top: 28px;
+            padding: 20px;
+            background: #FFF3D9;
+            border-radius: 14px;
+            color: #856B36;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        footer {
+            text-align: center;
+            color: #A0A8AD;
+            font-size: 11px;
+            margin-top: 40px;
+            padding-bottom: 15px;
+        }
+
+        @media (max-width: 850px) {
+            .sidebar {
+                width: 190px;
+            }
+
+            .main-content {
+                margin-left: 190px;
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                min-height: auto;
+                padding: 20px;
+            }
+
+            .sidebar-subtitle {
+                margin-bottom: 20px;
+            }
+
+            .sidebar-bottom {
+                position: static;
+                margin-top: 20px;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome-card {
+                padding: 25px;
+            }
+
+            .welcome-icon {
+                display: none;
+            }
+
+            .topbar {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <aside class="sidebar">
+
+        <div class="logo">✦ Pathway</div>
+
+        <p class="sidebar-subtitle">
+            Recruiter workspace
+        </p>
+
+        <p class="menu-label">Main Menu</p>
+
+        <!-- DASHBOARD -->
+        <a href="{{ url_for('recruiter_dashboard') }}"
+           class="menu-item active">
+            🏠 Dashboard
+        </a>
+
+        <!-- OPPORTUNITIES -->
+        <a href="{{ url_for('recruiter_opportunities') }}"
+           class="menu-item">
+            💼 My Opportunities
+        </a>
+
+        <!-- APPLICANTS -->
+        <a href="{{ url_for('recruiter_applicants') }}"
+           class="menu-item">
+            👩‍🎓 Student Applicants
+        </a>
+
+        <!-- APPLICATION MANAGEMENT -->
+        <a href="{{ url_for('recruiter_application_management') }}"
+           class="menu-item">
+            📋 Application Management
+        </a>
+
+        <!-- COMPANY PROFILE -->
+        <a href="{{ url_for('company_profile') }}"
+           class="menu-item">
+            🏢 Company Profile
+        </a>
+
+        <div class="sidebar-bottom">
+            <a href="{{ url_for('logout') }}" class="logout">
+                ↪ Log Out
+            </a>
+        </div>
+
+    </aside>
+
+    <main class="main-content">
+
+        <!-- TOP BAR -->
+        <div class="topbar">
+
+            <div>
+                <h1>Recruiter Dashboard</h1>
+                <p>Manage your company's opportunities and applicants.</p>
+            </div>
+
+            <div class="profile">
+                🏢 {{ session.get('user_name', 'Recruiter') }}
+            </div>
+
+        </div>
+
+        <!-- WELCOME SECTION -->
+        <section class="welcome-card">
+
+            <div>
+                <h2>
+                    Welcome, {{ session.get('user_name', 'Recruiter') }}! 👋
+                </h2>
+
+                <p>
+                    Welcome to your Pathway workspace.
+                    Here you can publish opportunities,
+                    discover talented students and manage applications
+                    from one convenient place.
+                </p>
+            </div>
+
+            <div class="welcome-icon">🌱</div>
+
+        </section>
+
+        <!-- WORKSPACE -->
+        <h2 class="section-title">
+            Your Workspace ✨
+        </h2>
+
+        <section class="feature-grid">
+
+            <!-- MY OPPORTUNITIES -->
+            <a href="{{ url_for('recruiter_opportunities') }}"
+               class="feature-card feature-link">
+
+                <div class="feature-icon mint">💼</div>
+
+                <h3>My Opportunities</h3>
+
+                <p>
+                    Create, publish and manage your company's internships
+                    and learnerships. View all your posted opportunities
+                    in one place.
+                </p>
+
+                <span class="coming-soon">
+                    MANAGE OPPORTUNITIES →
+                </span>
+
+            </a>
+
+            <!-- STUDENT APPLICANTS -->
+            <a href="{{ url_for('recruiter_applicants') }}"
+               class="feature-card feature-link">
+
+                <div class="feature-icon pink">👩‍🎓</div>
+
+                <h3>Student Applicants</h3>
+
+                <p>
+                    View students who have applied for your
+                    opportunities and review their applications.
+                </p>
+
+                <span class="coming-soon">
+                    VIEW APPLICANTS →
+                </span>
+
+            </a>
+
+            <!-- APPLICATION MANAGEMENT -->
+            <a href="{{ url_for('recruiter_application_management') }}"
+               class="feature-card feature-link">
+
+                <div class="feature-icon purple">📋</div>
+
+                <h3>Application Management</h3>
+
+                <p>
+                    Track applications, update student application statuses
+                    and send messages to applicants about their progress.
+                </p>
+
+                <span class="coming-soon">
+                    MANAGE APPLICATIONS →
+                </span>
+
+            </a>
+
+            <!-- COMPANY PROFILE -->
+            <a href="{{ url_for('company_profile') }}"
+               class="feature-card feature-link">
+
+                <div class="feature-icon yellow">🏢</div>
+
+                <h3>Company Profile</h3>
+
+                <p>
+                    View and update your company name, contact details,
+                    industry, address, website and company description.
+                </p>
+
+                <span class="coming-soon">
+                    EDIT COMPANY PROFILE →
+                </span>
+
+            </a>
+
+        </section>
+
+        <!-- NOTICE -->
+        <div class="notice">
+            ✨ <strong>Getting started:</strong>
+            Your recruiter workspace is ready!
+            You can now manage opportunities, view student applicants,
+            update application statuses and maintain your company profile.
+        </div>
+
+        <footer>
+            © 2026 Pathway | Internship & Placement Management System
+        </footer>
+
+    </main>
+
+</body>
+</html>

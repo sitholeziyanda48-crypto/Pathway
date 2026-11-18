@@ -1,0 +1,434 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Application Management | Pathway</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #F6F7FB;
+            color: #252B30;
+        }
+
+        .sidebar {
+            width: 250px;
+            min-height: 100vh;
+            background: #252B30;
+            position: fixed;
+            padding: 30px 20px;
+            color: white;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: 700;
+            color: #70C7B8;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 12px;
+            color: #B8C6C5;
+            margin-bottom: 45px;
+        }
+
+        .menu-item {
+            display: block;
+            padding: 13px 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            color: #E2E5E5;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .menu-item:hover,
+        .menu-item.active {
+            background: #397F76;
+        }
+
+        .logout {
+            position: absolute;
+            bottom: 30px;
+            left: 20px;
+            right: 20px;
+            display: block;
+            padding: 12px;
+            text-align: center;
+            background: #FCE8F0;
+            color: #A34F72;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 35px 45px;
+        }
+
+        .topbar {
+            margin-bottom: 30px;
+        }
+
+        .topbar h1 {
+            font-size: 25px;
+        }
+
+        .topbar p {
+            font-size: 13px;
+            color: #818B91;
+            margin-top: 5px;
+        }
+
+        .intro-card {
+            background: linear-gradient(120deg, #397F76, #70C7B8);
+            color: white;
+            padding: 28px;
+            border-radius: 18px;
+            margin-bottom: 28px;
+        }
+
+        .intro-card h2 {
+            margin-bottom: 8px;
+        }
+
+        .intro-card p {
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .application-card {
+            background: white;
+            padding: 25px;
+            border-radius: 17px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.04);
+            border: 1px solid #F0EFF5;
+        }
+
+        .application-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .application-header h3 {
+            font-size: 17px;
+        }
+
+        .company {
+            color: #818B91;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .status {
+            background: #EEE8FC;
+            color: #7656A8;
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .details {
+            background: #F8F9FC;
+            padding: 17px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 12px;
+            line-height: 2;
+        }
+
+        .details strong {
+            color: #252B30;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            margin: 15px 0 7px;
+        }
+
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #E1E5EB;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+            outline: none;
+        }
+
+        select:focus,
+        textarea:focus {
+            border-color: #70C7B8;
+        }
+
+        textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .save-button {
+            margin-top: 17px;
+            padding: 12px 22px;
+            border: none;
+            border-radius: 10px;
+            background: #397F76;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .save-button:hover {
+            background: #285F58;
+        }
+
+        .empty-state {
+            background: white;
+            padding: 45px 25px;
+            border-radius: 17px;
+            text-align: center;
+            color: #818B91;
+        }
+
+        .empty-state h3 {
+            color: #252B30;
+            margin-bottom: 10px;
+        }
+
+        .message {
+            padding: 13px 17px;
+            margin-bottom: 18px;
+            border-radius: 10px;
+            background: #E1F5EF;
+            color: #397F76;
+            font-size: 12px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #397F76;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 700px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                min-height: auto;
+            }
+
+            .logout {
+                position: static;
+                margin-top: 20px;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <aside class="sidebar">
+
+        <div class="logo">✦ Pathway</div>
+
+        <p class="subtitle">Recruiter workspace</p>
+
+        <a href="{{ url_for('recruiter_dashboard') }}" class="menu-item">
+            🏠 Dashboard
+        </a>
+
+        <a href="{{ url_for('recruiter_opportunities') }}" class="menu-item">
+            💼 My Opportunities
+        </a>
+
+        <a href="{{ url_for('recruiter_applicants') }}" class="menu-item">
+            👩‍🎓 Student Applicants
+        </a>
+
+        <a href="{{ url_for('recruiter_application_management') }}" class="menu-item active">
+            📋 Application Management
+        </a>
+
+        <a href="{{ url_for('logout') }}" class="logout">
+            ↪ Log Out
+        </a>
+
+    </aside>
+
+    <main class="main-content">
+
+        <a href="{{ url_for('recruiter_dashboard') }}" class="back-link">
+            ← Back to Dashboard
+        </a>
+
+        <div class="topbar">
+            <h1>Application Management 📋</h1>
+
+            <p>
+                Review applications and update students on their progress.
+            </p>
+        </div>
+
+        <section class="intro-card">
+
+            <h2>Manage Your Applicants 🌸</h2>
+
+            <p>
+                Review each student's application, choose an application
+                status and leave a message to explain your decision
+                or provide an update.
+            </p>
+
+        </section>
+
+        <!-- FLASH MESSAGES -->
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="message">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- APPLICATION LIST -->
+
+        {% if applications %}
+
+            {% for application in applications %}
+
+                <div class="application-card">
+
+                    <div class="application-header">
+
+                        <div>
+                            <h3>
+                                👩‍🎓 {{ application.full_name }}
+                            </h3>
+
+                            <p class="company">
+                                {{ application.position }}
+                                · {{ application.company_name }}
+                            </p>
+                        </div>
+
+                        <span class="status">
+                            {{ application.status }}
+                        </span>
+
+                    </div>
+
+                    <div class="details">
+
+                        <p>
+                            <strong>Student Number:</strong>
+                            {{ application.student_number }}
+                        </p>
+
+                        <p>
+                            <strong>Email:</strong>
+                            {{ application.email }}
+                        </p>
+
+                        <p>
+                            <strong>Application Date:</strong>
+                            {{ application.application_date }}
+                        </p>
+
+                    </div>
+
+                    <form method="POST"
+                          action="{{ url_for('update_application_status', application_id=application.id) }}">
+
+                        <label>Update Application Status</label>
+
+                        <select name="status" required>
+
+                            <option value="Pending"
+                                {% if application.status == 'Pending' %}selected{% endif %}>
+                                Pending
+                            </option>
+
+                            <option value="Under Review"
+                                {% if application.status == 'Under Review' %}selected{% endif %}>
+                                Under Review
+                            </option>
+
+                            <option value="Accepted"
+                                {% if application.status == 'Accepted' %}selected{% endif %}>
+                                Accepted
+                            </option>
+
+                            <option value="Rejected"
+                                {% if application.status == 'Rejected' %}selected{% endif %}>
+                                Rejected
+                            </option>
+
+                        </select>
+
+                        <label>Message to Student</label>
+
+                        <textarea
+                            name="company_response"
+                            placeholder="Write a message explaining this application update...">{{ application.company_response or '' }}</textarea>
+
+                        <button type="submit" class="save-button">
+                            💾 Save Application Update
+                        </button>
+
+                    </form>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <h3>📭 No Applications Yet</h3>
+
+                <p>
+                    Students who apply for your opportunities
+                    will appear here.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </main>
+
+</body>
+</html>

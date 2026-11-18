@@ -1,0 +1,418 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Opportunities | Pathway</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #F6F7FB;
+            color: #252B30;
+        }
+
+        header {
+            background: #252B30;
+            color: white;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h2 {
+            color: #70C7B8;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .top-section {
+            margin-bottom: 25px;
+        }
+
+        .top-section h1 {
+            font-size: 27px;
+            margin-bottom: 8px;
+        }
+
+        .top-section p {
+            color: #777;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #397F76;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .panel {
+            background: white;
+            padding: 28px;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .panel h2 {
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #E1E5E9;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 13px;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #70C7B8;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: #70C7B8;
+            color: #252B30;
+            border: none;
+            border-radius: 10px;
+            font-family: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #59B5A5;
+        }
+
+        .flash {
+            background: #E1F5EF;
+            color: #397F76;
+            padding: 13px 16px;
+            border-radius: 10px;
+            margin-bottom: 18px;
+            font-size: 13px;
+        }
+
+        .opportunity {
+            border: 1px solid #E9EAF0;
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 15px;
+            background: #FFFEFF;
+        }
+
+        .opportunity h3 {
+            margin-bottom: 8px;
+        }
+
+        .opportunity p {
+            color: #666;
+            font-size: 13px;
+            margin: 6px 0;
+        }
+
+        .status {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: #F1EAFE;
+            color: #7654A5;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .status.closed {
+            background: #FDE8E8;
+            color: #B54747;
+        }
+
+        .status.approved {
+            background: #E1F5EF;
+            color: #397F76;
+        }
+
+        .status.pending {
+            background: #FFF3D9;
+            color: #986C1D;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+
+        .action-buttons a,
+        .action-buttons button {
+            display: inline-block;
+            margin: 0;
+            padding: 9px 17px;
+            border-radius: 9px;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .edit-btn {
+            background: #E8F5F2;
+            color: #397F76;
+        }
+
+        .edit-btn:hover {
+            background: #D4EEE7;
+        }
+
+        .close-btn {
+            background: #FDE8E8;
+            color: #B54747;
+        }
+
+        .close-btn:hover {
+            background: #FBD6D6;
+        }
+
+        .closed-note {
+            color: #B54747;
+            font-size: 12px;
+            margin-top: 12px;
+            font-weight: 600;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 25px;
+            color: #888;
+        }
+
+        @media (max-width: 650px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field.full {
+                grid-column: auto;
+            }
+
+            .panel {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>✦ Pathway</h2>
+    <a href="{{ url_for('logout') }}">Logout ↗</a>
+</header>
+
+<div class="container">
+
+    <a href="{{ url_for('recruiter_dashboard') }}" class="back-link">
+        ← Back to Dashboard
+    </a>
+
+    <div class="top-section">
+        <h1>💼 My Opportunities</h1>
+        <p>Create and manage internships and learnerships for {{ company_name }}.</p>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+            <div class="flash">{{ message }}</div>
+        {% endfor %}
+    {% endwith %}
+
+    <!-- CREATE NEW OPPORTUNITY -->
+
+    <section class="panel">
+        <h2>✨ Post a New Opportunity</h2>
+
+        <form method="POST" action="{{ url_for('recruiter_opportunities') }}">
+            <div class="form-grid">
+
+                <div class="field">
+                    <label>Position Title *</label>
+                    <input type="text" name="position"
+                           placeholder="e.g. Software Developer Intern" required>
+                </div>
+
+                <div class="field">
+                    <label>Location *</label>
+                    <input type="text" name="location"
+                           placeholder="e.g. Durban, South Africa" required>
+                </div>
+
+                <div class="field">
+                    <label>Application Deadline *</label>
+                    <input type="date" name="deadline" required>
+                </div>
+
+                <div class="field full">
+                    <label>Description *</label>
+                    <textarea name="description"
+                              placeholder="Describe the opportunity..." required></textarea>
+                </div>
+
+                <div class="field full">
+                    <label>Requirements</label>
+                    <textarea name="requirements"
+                              placeholder="List the qualifications or skills required..."></textarea>
+                </div>
+
+            </div>
+
+            <button type="submit">＋ Publish Opportunity</button>
+        </form>
+    </section>
+
+    <!-- MANAGE POSTED OPPORTUNITIES -->
+
+    <section class="panel">
+        <h2>📋 Your Posted Opportunities</h2>
+
+        {% if opportunities %}
+            {% for opportunity in opportunities %}
+
+                <div class="opportunity">
+
+                    <h3>{{ opportunity['position'] }}</h3>
+
+                    <p>📍 {{ opportunity['location'] }}</p>
+                    <p>📅 Deadline: {{ opportunity['deadline'] }}</p>
+                    <p>{{ opportunity['description'] }}</p>
+
+                    {% if opportunity['requirements'] %}
+                        <p>
+                            <strong>Requirements:</strong>
+                            {{ opportunity['requirements'] }}
+                        </p>
+                    {% endif %}
+
+                    {% if opportunity['is_active'] == 0 %}
+
+                        <span class="status closed">
+                            Closed
+                        </span>
+
+                        <p class="closed-note">
+                            This opportunity is no longer accepting applications.
+                        </p>
+
+                    {% elif opportunity['approval_status'] == 'Approved' %}
+
+                        <span class="status approved">
+                            Approved
+                        </span>
+
+                    {% else %}
+
+                        <span class="status pending">
+                            {{ opportunity['approval_status'] }}
+                        </span>
+
+                    {% endif %}
+
+                    <!-- OPPORTUNITY ACTIONS -->
+
+                    <div class="action-buttons">
+
+                        <a
+                            class="edit-btn"
+                            href="{{ url_for('edit_opportunity', opportunity_id=opportunity['id']) }}"
+                        >
+                            ✏️ Edit Opportunity
+                        </a>
+
+                        {% if opportunity['is_active'] == 1 %}
+
+                            <form
+                                method="POST"
+                                action="{{ url_for('close_opportunity', opportunity_id=opportunity['id']) }}"
+                                onsubmit="return confirm('Are you sure you want to close this opportunity? Existing applications will be preserved.');"
+                            >
+                                <button type="submit" class="close-btn">
+                                    🔒 Close Opportunity
+                                </button>
+                            </form>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty">
+                <h3>🌷 No opportunities posted yet</h3>
+                <p>Your published opportunities will appear here.</p>
+            </div>
+
+        {% endif %}
+
+    </section>
+
+</div>
+
+</body>
+</html>

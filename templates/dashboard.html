@@ -1,0 +1,602 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pathway | Student Dashboard 🌸</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #F8F5FA;
+            color: #30343B;
+        }
+
+        header {
+            background: #252B30;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 700;
+            color: #70C7B8;
+        }
+
+        .logo span {
+            color: #F4A9C6;
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #70C7B8;
+        }
+
+        .container {
+            width: 88%;
+            max-width: 1200px;
+            margin: 35px auto;
+        }
+
+        .welcome {
+            background: linear-gradient(120deg, #DDF4EF, #FCE5EF, #E9E5FA);
+            padding: 40px;
+            border-radius: 22px;
+            margin-bottom: 30px;
+        }
+
+        .welcome h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .welcome p {
+            color: #62636B;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .section-title {
+            font-size: 21px;
+            margin-bottom: 20px;
+        }
+
+        /* Flash messages */
+        .flash-messages {
+            margin-bottom: 25px;
+        }
+
+        .flash-message {
+            background: #DDF4EF;
+            color: #245C52;
+            border-left: 5px solid #70C7B8;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .overview {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .overview-card {
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.04);
+            transition: 0.3s;
+        }
+
+        .overview-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pink {
+            background: #FCE5EF;
+        }
+
+        .mint {
+            background: #DDF4EF;
+        }
+
+        .lavender {
+            background: #E9E5FA;
+        }
+
+        .card-icon {
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .overview-card h3 {
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        .number {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .overview-card p {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .applications {
+            background: white;
+            padding: 28px;
+            border-radius: 18px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.04);
+        }
+
+        .applications p {
+            font-size: 13px;
+            color: #777;
+            line-height: 1.8;
+        }
+
+        .application-empty {
+            background: #F8F5FA;
+            padding: 25px;
+            border-radius: 14px;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .application-empty h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        /* Application cards */
+        .application-card {
+            background: #F8F5FA;
+            padding: 20px;
+            border-radius: 14px;
+            margin-top: 18px;
+            border-left: 5px solid #70C7B8;
+        }
+
+        .application-card h3 {
+            font-size: 17px;
+            margin-bottom: 8px;
+        }
+
+        .application-card p {
+            margin: 5px 0;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .status-pending {
+            background: #FFF0CE;
+            color: #956A14;
+        }
+
+        .status-review {
+            background: #E9E5FA;
+            color: #66549A;
+        }
+
+        .status-accepted {
+            background: #DDF4EF;
+            color: #245C52;
+        }
+
+        .status-rejected {
+            background: #FCE5EF;
+            color: #A34262;
+        }
+
+        .response {
+            background: white;
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 12px;
+        }
+
+        .explore {
+            background: linear-gradient(120deg, #252B30, #38434A);
+            color: white;
+            padding: 35px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+
+        .explore h2 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .explore p {
+            color: #E0E0E0;
+            font-size: 13px;
+            line-height: 1.8;
+            margin-bottom: 22px;
+        }
+
+        .explore-button {
+            display: inline-block;
+            background: #70C7B8;
+            color: #252B30;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .explore-button:hover {
+            background: #F4A9C6;
+            transform: translateY(-2px);
+        }
+
+        .progress {
+            background: white;
+            padding: 28px;
+            border-radius: 18px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.04);
+        }
+
+        .progress p {
+            font-size: 13px;
+            color: #777;
+            line-height: 1.8;
+        }
+
+        .progress-bar {
+            background: #EEEAF2;
+            height: 12px;
+            border-radius: 20px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: #70C7B8;
+            height: 100%;
+            border-radius: 20px;
+            transition: width 0.5s;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #888;
+            font-size: 12px;
+        }
+
+        @media (max-width: 700px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .container {
+                width: 92%;
+            }
+
+            .overview {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome {
+                padding: 25px;
+            }
+
+            .welcome h1 {
+                font-size: 23px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header>
+
+        <div class="logo">
+            Pathway<span> ✿</span>
+        </div>
+
+        <nav>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('opportunities') }}">Opportunities</a>
+            <a href="{{ url_for('logout') }}">Logout ♡</a>
+        </nav>
+
+    </header>
+
+    <div class="container">
+
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for message in messages %}
+                        <div class="flash-message">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Welcome banner -->
+        <div class="welcome">
+
+            <h1>
+                Welcome back, {{ session.get('student_name', 'Student') }}! 🌷
+            </h1>
+
+            <p>
+                Your future starts here!
+                Keep track of your internship journey,
+                explore exciting opportunities and take
+                another step towards your dream career.
+            </p>
+
+        </div>
+
+        <!-- Dashboard overview -->
+        <h2 class="section-title">
+            ✨ Your Internship Overview
+        </h2>
+
+        <div class="overview">
+
+            <div class="overview-card pink">
+
+                <div class="card-icon">📨</div>
+
+                <h3>Applications Submitted</h3>
+
+                <div class="number">
+                    {{ total_applications }}
+                </div>
+
+                <p>Your submitted internship applications</p>
+
+            </div>
+
+            <div class="overview-card mint">
+
+                <div class="card-icon">⏳</div>
+
+                <h3>Pending Applications</h3>
+
+                <div class="number">
+                    {{ pending_applications }}
+                </div>
+
+                <p>Applications awaiting a response</p>
+
+            </div>
+
+            <div class="overview-card lavender">
+
+                <div class="card-icon">🎉</div>
+
+                <h3>Approved Applications</h3>
+
+                <div class="number">
+                    {{ accepted_applications }}
+                </div>
+
+                <p>Internship applications accepted</p>
+
+            </div>
+
+        </div>
+
+        <!-- Applications section -->
+        <div class="applications">
+
+            <h2 class="section-title">
+                📋 My Applications
+            </h2>
+
+            <p>
+                Keep track of your internship applications
+                and stay updated on company responses.
+            </p>
+
+            {% if applications %}
+
+                {% for application in applications %}
+
+                    <div class="application-card">
+
+                        <h3>
+                            {{ application['position'] }}
+                        </h3>
+
+                        <p>
+                            <strong>Company:</strong>
+                            {{ application['company_name'] }}
+                        </p>
+
+                        <p>
+                            <strong>Location:</strong>
+                            {{ application['location'] or 'Not specified' }}
+                        </p>
+
+                        <p>
+                            <strong>Application date:</strong>
+                            {{ application['application_date'] }}
+                        </p>
+
+                        <p>
+                            <strong>Status:</strong>
+
+                            {% if application['status'] == 'Pending' %}
+                                <span class="status status-pending">
+                                    Pending
+                                </span>
+
+                            {% elif application['status'] == 'Under Review' %}
+                                <span class="status status-review">
+                                    Under Review
+                                </span>
+
+                            {% elif application['status'] == 'Accepted' %}
+                                <span class="status status-accepted">
+                                    Accepted
+                                </span>
+
+                            {% elif application['status'] == 'Rejected' %}
+                                <span class="status status-rejected">
+                                    Rejected
+                                </span>
+
+                            {% else %}
+                                <span class="status">
+                                    {{ application['status'] }}
+                                </span>
+                            {% endif %}
+
+                        </p>
+
+                        {% if application['company_response'] %}
+
+                            <div class="response">
+
+                                <strong>Company response:</strong>
+
+                                <p>
+                                    {{ application['company_response'] }}
+                                </p>
+
+                            </div>
+
+                        {% else %}
+
+                            <div class="response">
+                                <p>
+                                    No message from the company yet.
+                                </p>
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="application-empty">
+
+                    <h3>🌸 Your application journey starts here!</h3>
+
+                    <p>
+                        Once you apply for an internship,
+                        your application information and status
+                        will be available here.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+        <!-- Explore opportunities section -->
+        <div class="explore">
+
+            <h2>Find Your Dream Internship! 💼</h2>
+
+            <p>
+                Discover internship opportunities,
+                explore different companies and find
+                the placement that matches your career goals.
+            </p>
+
+            <a href="{{ url_for('opportunities') }}" class="explore-button">
+                Explore Opportunities ♡
+            </a>
+
+        </div>
+
+        <!-- Progress section -->
+        <div class="progress">
+
+            <h2 class="section-title">
+                🌱 Your Career Journey
+            </h2>
+
+            <p>
+                Every application brings you one step closer
+                to your future career. Keep exploring and
+                making progress!
+            </p>
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    style="width: {{ (accepted_applications / total_applications * 100) if total_applications > 0 else 0 }}%;">
+                </div>
+
+            </div>
+
+            <p>
+                You have {{ accepted_applications }} accepted
+                application(s) out of {{ total_applications }} submitted.
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        Made with ♡ by Pathway | Your future starts here 🌷
+    </footer>
+
+</body>
+</html>

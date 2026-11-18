@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Choose Account | Pathway</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fff2f8, #eeeaff, #e5f8f2);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 15px;
+            color: #252B30;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            background: white;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 30px;
+            font-weight: 700;
+            color: #397F76;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 13px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .description {
+            text-align: center;
+            color: #888;
+            font-size: 12px;
+            margin-bottom: 28px;
+        }
+
+        .account-card {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 22px;
+            margin-bottom: 17px;
+            border-radius: 17px;
+            text-decoration: none;
+            color: #252B30;
+            transition: 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .student {
+            background: #FCE7F3;
+        }
+
+        .recruiter {
+            background: #E0F2FE;
+        }
+
+        .account-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-color: #70C7B8;
+        }
+
+        .account-icon {
+            font-size: 38px;
+            min-width: 55px;
+            text-align: center;
+        }
+
+        .account-info {
+            flex: 1;
+        }
+
+        .account-info h2 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .account-info p {
+            font-size: 11px;
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .arrow {
+            font-size: 24px;
+            color: #397F76;
+        }
+
+        .login-text {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 12px;
+            color: #777;
+        }
+
+        .login-text a {
+            color: #397F76;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .back-home {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            font-size: 12px;
+            color: #888;
+            text-decoration: none;
+        }
+
+        .back-home:hover {
+            color: #397F76;
+        }
+
+        @media(max-width: 500px) {
+            .container {
+                padding: 27px 20px;
+            }
+
+            .account-card {
+                padding: 17px;
+                gap: 10px;
+            }
+
+            .account-icon {
+                font-size: 30px;
+                min-width: 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="logo">✦ Pathway</div>
+
+    <p class="subtitle">
+        Your journey to opportunity starts here 🌸
+    </p>
+
+    <h1>Create Your Account</h1>
+
+    <p class="description">
+        Choose the type of account you would like to create.
+    </p>
+
+    <a href="{{ url_for('student_register') }}"
+       class="account-card student">
+
+        <div class="account-icon">🎓</div>
+
+        <div class="account-info">
+            <h2>Student Account</h2>
+            <p>
+                Discover internships and learnerships,
+                upload your CV and apply for opportunities.
+            </p>
+        </div>
+
+        <div class="arrow">›</div>
+
+    </a>
+
+    <a href="{{ url_for('recruiter_register') }}"
+       class="account-card recruiter">
+
+        <div class="account-icon">🏢</div>
+
+        <div class="account-info">
+            <h2>Recruiter Account</h2>
+            <p>
+                Register your company, publish opportunities
+                and manage student applications.
+            </p>
+        </div>
+
+        <div class="arrow">›</div>
+
+    </a>
+
+    <p class="login-text">
+        Already have an account?
+        <a href="{{ url_for('login') }}">Log in here</a>
+    </p>
+
+    <a href="{{ url_for('home') }}" class="back-home">
+        ← Back to Home
+    </a>
+
+</div>
+
+</body>
+</html>

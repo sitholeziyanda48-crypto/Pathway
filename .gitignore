@@ -1,0 +1,22 @@
+
+__pycache__/
+*.py[cod]
+
+venv/
+.venv/
+
+.env
+
+# Private database files
+pathway.db
+*.db
+
+# Student documents and uploads
+uploads/
+__pycache__
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+

@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Profile | Pathway</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #fff7fb;
+            color: #252B30;
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #252B30;
+            padding: 30px 20px;
+            color: white;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: 700;
+            color: #70C7B8;
+            margin-bottom: 40px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #eeeeee;
+            text-decoration: none;
+            padding: 13px;
+            margin-bottom: 10px;
+            border-radius: 12px;
+            font-size: 13px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: #70C7B8;
+            color: #252B30;
+        }
+
+        .main {
+            flex: 1;
+            padding: 40px;
+        }
+
+        .heading {
+            margin-bottom: 25px;
+        }
+
+        .heading h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .heading p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .profile-card {
+            background: white;
+            padding: 30px;
+            border-radius: 22px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            max-width: 900px;
+        }
+
+        .profile-card h2 {
+            font-size: 19px;
+            margin-bottom: 8px;
+        }
+
+        .intro {
+            color: #888;
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        input, textarea {
+            padding: 13px;
+            border: 1px solid #eadfe8;
+            border-radius: 11px;
+            font-family: inherit;
+            font-size: 13px;
+            outline: none;
+            background: #fffafd;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #70C7B8;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        .save-button {
+            margin-top: 25px;
+            background: #70C7B8;
+            color: #252B30;
+            border: none;
+            padding: 14px 25px;
+            border-radius: 12px;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .save-button:hover {
+            background: #58b5a5;
+        }
+
+        .message {
+            padding: 13px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            background: #e5f8ef;
+            color: #246b48;
+        }
+
+        .error {
+            background: #ffe6e6;
+            color: #a52a2a;
+        }
+
+        @media(max-width: 750px) {
+            .layout {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+
+            .main {
+                padding: 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <div class="logo">Pathway 🌸</div>
+
+        <a href="{{ url_for('recruiter_dashboard') }}">🏠 Dashboard</a>
+        <a href="{{ url_for('recruiter_opportunities') }}">💼 My Opportunities</a>
+        <a href="{{ url_for('recruiter_applicants') }}">👩‍🎓 Student Applicants</a>
+        <a href="{{ url_for('recruiter_application_management') }}">📋 Application Management</a>
+        <a href="{{ url_for('company_profile') }}" class="active">🏢 Company Profile</a>
+        <a href="{{ url_for('logout') }}">🚪 Logout</a>
+    </aside>
+
+    <main class="main">
+
+        <div class="heading">
+            <h1>🏢 Company Profile</h1>
+            <p>Manage your company information and contact details.</p>
+        </div>
+
+        <div class="profile-card">
+
+            <h2>Company Information ✨</h2>
+            <p class="intro">Keep your company details up to date on Pathway.</p>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% for category, message in messages %}
+                    <div class="message {% if category == 'error' %}error{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endwith %}
+
+            <form method="POST" action="{{ url_for('company_profile') }}">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>Company Name *</label>
+                        <input type="text" name="company_name"
+                               value="{{ recruiter['company_name'] or '' }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Contact Person *</label>
+                        <input type="text" name="contact_name"
+                               value="{{ recruiter['contact_name'] or '' }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Address *</label>
+                        <input type="email" name="email"
+                               value="{{ recruiter['email'] or '' }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Industry</label>
+                        <input type="text" name="company_industry"
+                               value="{{ recruiter['company_industry'] or '' }}"
+                               placeholder="e.g. Information Technology">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="text" name="company_phone"
+                               value="{{ recruiter['company_phone'] or '' }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Company Website</label>
+                        <input type="url" name="company_website"
+                               value="{{ recruiter['company_website'] or '' }}"
+                               placeholder="https://example.com">
+                    </div>
+
+                    <div class="form-group full">
+                        <label>Company Address</label>
+                        <input type="text" name="company_address"
+                               value="{{ recruiter['company_address'] or '' }}">
+                    </div>
+
+                    <div class="form-group full">
+                        <label>Company Description</label>
+                        <textarea name="company_description"
+                                  placeholder="Tell students about your company...">{{ recruiter['company_description'] or '' }}</textarea>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="save-button">
+                    💾 Save Company Profile
+                </button>
+
+            </form>
+
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

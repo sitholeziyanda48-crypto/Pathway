@@ -1,0 +1,378 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Pathway</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #252B30, #34464A, #397F76);
+            color: #252B30;
+        }
+
+        header {
+            padding: 22px 8%;
+            background: #252B30;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header h2 {
+            margin: 0;
+            color: #70C7B8;
+            font-size: 28px;
+        }
+
+        .brand-icon {
+            font-size: 25px;
+            margin-right: 8px;
+        }
+
+        .header-text {
+            color: #E2E5E5;
+            font-size: 13px;
+        }
+
+        .container {
+            min-height: calc(100vh - 120px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 45px 15px;
+        }
+
+        .login-card {
+            background: #F5F8F7;
+            width: 100%;
+            max-width: 470px;
+            padding: 38px;
+            border-radius: 20px;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.25);
+        }
+
+        .welcome-icon {
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 8px;
+        }
+
+        .login-card h1 {
+            text-align: center;
+            margin: 0 0 10px;
+            color: #252B30;
+        }
+
+        .intro {
+            text-align: center;
+            color: #687579;
+            margin-bottom: 28px;
+            line-height: 1.5;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #34464A;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #CBD5D3;
+            border-radius: 9px;
+            font-size: 15px;
+            background: white;
+            color: #252B30;
+        }
+
+        input:focus, select:focus {
+            outline: 2px solid #70C7B8;
+            border-color: #397F76;
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper input {
+            padding-right: 55px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 19px;
+            background: none;
+            border: none;
+            width: auto;
+            padding: 4px;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 15px;
+            background: #397F76;
+            color: white;
+            border: none;
+            border-radius: 9px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .login-button:hover {
+            background: #2D685F;
+            transform: translateY(-2px);
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 24px;
+            color: #687579;
+            line-height: 1.6;
+        }
+
+        .register-link a {
+            color: #397F76;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .error-message {
+            background: #FCE8E8;
+            color: #A52A2A;
+            border: 1px solid #E9B8B8;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .info-message {
+            background: #E5F4F0;
+            color: #28685F;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 13px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            padding: 18px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 500px) {
+            .login-card {
+                padding: 25px 20px;
+            }
+
+            header {
+                padding: 18px 5%;
+            }
+
+            .header-text {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2><span class="brand-icon">✦</span>Pathway</h2>
+    <span class="header-text">Your journey to opportunity starts here ♡</span>
+</header>
+
+<div class="container">
+    <div class="login-card">
+
+        <div class="welcome-icon">🌸</div>
+
+        <h1>Welcome Back!</h1>
+
+        <p class="intro">
+            Sign in to continue your journey with Pathway.
+        </p>
+
+        {% if error %}
+            <div class="error-message">{{ error }}</div>
+        {% endif %}
+
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+                <div class="info-message">{{ message }}</div>
+            {% endfor %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('login') }}">
+
+            <div class="form-group">
+                <label for="role">I am logging in as</label>
+
+                <select name="role" id="role" required>
+                    <option value="student"
+                        {% if selected_role == 'student' or not selected_role %}selected{% endif %}>
+                        🎓 Student
+                    </option>
+
+                    <option value="recruiter"
+                        {% if selected_role == 'recruiter' %}selected{% endif %}>
+                        🏢 Recruiter
+                    </option>
+
+                    <option value="admin"
+                        {% if selected_role == 'admin' %}selected{% endif %}>
+                        🛡️ Administrator
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="identifier" id="identifier-label">
+                    Student Number
+                </label>
+
+                <input
+                    type="text"
+                    id="identifier"
+                    name="student_number"
+                    placeholder="Enter your student number"
+                    value="{{ identifier or '' }}"
+                    autocomplete="username"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+
+                <div class="password-wrapper">
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="toggle-password"
+                        id="togglePassword"
+                        aria-label="Show password"
+                    >👁️</button>
+                </div>
+            </div>
+
+            <button type="submit" class="login-button">
+                Login to Pathway →
+            </button>
+
+        </form>
+
+        <div class="info-message" id="login-hint">
+            ✨ Enter your student number and password.
+        </div>
+
+        <p class="register-link">
+            Don't have an account?<br>
+            <a href="{{ url_for('register') }}">Student Register</a>
+
+            <br><br>
+
+            Are you a company?<br>
+            <a href="{{ url_for('recruiter_register') }}">Recruiter Register</a>
+        </p>
+
+    </div>
+</div>
+
+<footer>
+    © 2026 Pathway | Internship & Placement Management System
+</footer>
+
+<script>
+    const roleSelect = document.getElementById("role");
+    const identifierLabel = document.getElementById("identifier-label");
+    const identifierInput = document.getElementById("identifier");
+    const loginHint = document.getElementById("login-hint");
+
+    function updateLoginField() {
+
+        if (roleSelect.value === "student") {
+
+            identifierLabel.textContent = "Student Number";
+
+            identifierInput.name = "student_number";
+            identifierInput.type = "text";
+            identifierInput.placeholder = "Enter your student number";
+            identifierInput.inputMode = "numeric";
+
+            loginHint.textContent =
+                "✨ Enter your student number and password.";
+
+        } else {
+
+            identifierLabel.textContent = "Email Address";
+
+            identifierInput.name = "email";
+            identifierInput.type = "email";
+            identifierInput.placeholder = "Enter your email address";
+
+            identifierInput.removeAttribute("inputmode");
+
+            loginHint.textContent =
+                "✨ Enter your registered email address and password.";
+        }
+    }
+
+    roleSelect.addEventListener("change", updateLoginField);
+
+    updateLoginField();
+
+    const passwordField = document.getElementById("password");
+    const toggleButton = document.getElementById("togglePassword");
+
+    toggleButton.addEventListener("click", function () {
+
+        if (passwordField.type === "password") {
+
+            passwordField.type = "text";
+            toggleButton.textContent = "🙈";
+            toggleButton.setAttribute("aria-label", "Hide password");
+
+        } else {
+
+            passwordField.type = "password";
+            toggleButton.textContent = "👁️";
+            toggleButton.setAttribute("aria-label", "Show password");
+
+        }
+    });
+</script>
+
+</body>
+</html>

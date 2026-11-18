@@ -1,0 +1,394 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Recruiter Registration | Pathway</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(
+                135deg,
+                #252B30,
+                #34464A,
+                #397F76
+            );
+            color: #252B30;
+        }
+
+        header {
+            padding: 22px 8%;
+            background: #252B30;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header h2 {
+            margin: 0;
+            color: #70C7B8;
+            font-size: 28px;
+        }
+
+        .brand-icon {
+            font-size: 25px;
+            margin-right: 8px;
+        }
+
+        .header-text {
+            color: #E2E5E5;
+            font-size: 13px;
+        }
+
+        .container {
+            min-height: calc(100vh - 120px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 45px 15px;
+        }
+
+        .register-card {
+            background: #F5F8F7;
+            width: 100%;
+            max-width: 540px;
+            padding: 38px;
+            border-radius: 20px;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.25);
+        }
+
+        .welcome-icon {
+            text-align: center;
+            font-size: 43px;
+            margin-bottom: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 0 0 10px;
+            color: #252B30;
+        }
+
+        .intro {
+            text-align: center;
+            color: #687579;
+            margin-bottom: 28px;
+            line-height: 1.5;
+        }
+
+        .form-group {
+            margin-bottom: 19px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #34464A;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #CBD5D3;
+            border-radius: 9px;
+            font-size: 15px;
+            background: white;
+            color: #252B30;
+            font-family: Arial, sans-serif;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 105px;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: 2px solid #70C7B8;
+            border-color: #397F76;
+        }
+
+        /* Password eye styling */
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper input {
+            padding-right: 50px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 20px;
+            padding: 5px;
+        }
+
+        .password-note {
+            font-size: 12px;
+            color: #687579;
+            margin-top: 6px;
+        }
+
+        .register-button {
+            width: 100%;
+            padding: 15px;
+            background: #397F76;
+            color: white;
+            border: none;
+            border-radius: 9px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .register-button:hover {
+            background: #2D685F;
+            transform: translateY(-2px);
+        }
+
+        .error-message {
+            background: #FCE8E8;
+            color: #A52A2A;
+            border: 1px solid #E9B8B8;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 24px;
+            color: #687579;
+        }
+
+        .login-link a {
+            color: #397F76;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .info-message {
+            background: #E5F4F0;
+            color: #28685F;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 13px;
+            margin-top: 18px;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            padding: 18px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 500px) {
+            .register-card {
+                padding: 25px 20px;
+            }
+
+            header {
+                padding: 18px 5%;
+            }
+
+            .header-text {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2><span class="brand-icon">✦</span>Pathway</h2>
+
+    <span class="header-text">
+        Connecting companies with future talent ♡
+    </span>
+</header>
+
+<div class="container">
+
+    <div class="register-card">
+
+        <div class="welcome-icon">🏢</div>
+
+        <h1>Join Pathway!</h1>
+
+        <p class="intro">
+            Create your company account and start connecting
+            with talented students.
+        </p>
+
+        {% if error %}
+            <div class="error-message">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <form method="POST" action="{{ url_for('recruiter_register') }}">
+
+            <div class="form-group">
+
+                <label for="company_name">Company Name *</label>
+
+                <input
+                    type="text"
+                    id="company_name"
+                    name="company_name"
+                    placeholder="Enter your company name"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="contact_name">Contact Person *</label>
+
+                <input
+                    type="text"
+                    id="contact_name"
+                    name="contact_name"
+                    placeholder="Enter the contact person's name"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="email">Company Email Address *</label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your company email"
+                    autocomplete="email"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="password">Create Password *</label>
+
+                <div class="password-wrapper">
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Create a secure password"
+                        minlength="8"
+                        autocomplete="new-password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="toggle-password"
+                        onclick="togglePassword()"
+                        id="eyeButton"
+                        aria-label="Show password"
+                    >👁</button>
+
+                </div>
+
+                <p class="password-note">
+                    Your password must contain at least 8 characters.
+                </p>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="company_description">
+                    About Your Company
+                </label>
+
+                <textarea
+                    id="company_description"
+                    name="company_description"
+                    placeholder="Tell students a little about your company..."
+                ></textarea>
+
+            </div>
+
+            <button type="submit" class="register-button">
+                Create Recruiter Account →
+            </button>
+
+        </form>
+
+        <div class="info-message">
+            ✨ By joining Pathway, your company can connect
+            with students seeking internships and learnerships.
+        </div>
+
+        <p class="login-link">
+            Already have a recruiter account?
+            <a href="{{ url_for('login') }}">Log in here</a>
+        </p>
+
+    </div>
+
+</div>
+
+<footer>
+    © 2026 Pathway | Internship & Placement Management System
+</footer>
+
+<script>
+    function togglePassword() {
+
+        const passwordField = document.getElementById("password");
+        const eyeButton = document.getElementById("eyeButton");
+
+        if (passwordField.type === "password") {
+
+            passwordField.type = "text";
+            eyeButton.textContent = "🙈";
+            eyeButton.setAttribute("aria-label", "Hide password");
+
+        } else {
+
+            passwordField.type = "password";
+            eyeButton.textContent = "👁";
+            eyeButton.setAttribute("aria-label", "Show password");
+
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,343 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Registration | Pathway</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fff2f8, #eeeaff, #e5f8f2);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 15px;
+            color: #252B30;
+        }
+
+        .register-container {
+            width: 100%;
+            max-width: 520px;
+            background: white;
+            padding: 38px;
+            border-radius: 24px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: #397F76;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 13px;
+            margin-bottom: 28px;
+        }
+
+        h1 {
+            font-size: 23px;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .description {
+            text-align: center;
+            color: #888;
+            font-size: 12px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #e6e1e9;
+            border-radius: 11px;
+            outline: none;
+            font-family: inherit;
+            font-size: 13px;
+            background: #fffafd;
+        }
+
+        input:focus {
+            border-color: #70C7B8;
+            box-shadow: 0 0 0 3px rgba(112,199,184,0.12);
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper input {
+            padding-right: 48px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 13px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 18px;
+        }
+
+        .password-help {
+            font-size: 10px;
+            color: #888;
+            margin-top: 6px;
+            line-height: 1.6;
+        }
+
+        .register-button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 8px;
+            border: none;
+            border-radius: 12px;
+            background: #70C7B8;
+            color: #252B30;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .register-button:hover {
+            background: #58b5a5;
+            transform: translateY(-2px);
+        }
+
+        .message {
+            padding: 12px;
+            margin-bottom: 16px;
+            border-radius: 10px;
+            background: #e5f8ef;
+            color: #246b48;
+            font-size: 12px;
+        }
+
+        .error {
+            background: #ffe6e6;
+            color: #a52a2a;
+        }
+
+        .bottom-text {
+            text-align: center;
+            margin-top: 22px;
+            font-size: 12px;
+            color: #777;
+        }
+
+        .bottom-text a {
+            color: #397F76;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .back-home {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 12px;
+            color: #888;
+            text-decoration: none;
+        }
+
+        .back-home:hover {
+            color: #397F76;
+        }
+
+        @media(max-width: 500px) {
+            .register-container {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="register-container">
+
+    <div class="logo">✦ Pathway</div>
+    <p class="subtitle">Your journey to opportunity starts here 🌸</p>
+
+    <h1>Create Student Account</h1>
+
+    <p class="description">
+        Register to discover internships and learnerships.
+    </p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <div class="message {% if category == 'error' %}error{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endwith %}
+
+    <form method="POST"
+         action="{{ url_for('student_register') }}" 
+          onsubmit="return registerStudent(event)">
+
+        <div class="form-group">
+            <label for="full-name">Full Name *</label>
+            <input type="text"
+                   id="full-name"
+                   name="full_name"
+                   placeholder="Enter your full name"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label for="student-number">Student Number *</label>
+            <input type="text"
+                   id="student-number"
+                   name="student_number"
+                   placeholder="Enter your 8-digit student number"
+                   maxlength="8"
+                   inputmode="numeric"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email"
+                   id="email"
+                   name="email"
+                   placeholder="Enter your email address"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password *</label>
+
+            <div class="password-wrapper">
+                <input type="password"
+                       id="password"
+                       name="password"
+                       placeholder="Create a password"
+                       required>
+
+                <button type="button"
+                        class="toggle-password"
+                        onclick="togglePassword('password', this)"
+                        aria-label="Show password">👁</button>
+            </div>
+
+            <p class="password-help">
+                At least 8 characters, including uppercase, lowercase,
+                a number and a special character.
+            </p>
+        </div>
+
+        <div class="form-group">
+            <label for="confirm-password">Confirm Password *</label>
+
+            <div class="password-wrapper">
+                <input type="password"
+                       id="confirm-password"
+                       name="confirm_password"
+                       placeholder="Enter your password again"
+                       required>
+
+                <button type="button"
+                        class="toggle-password"
+                        onclick="togglePassword('confirm-password', this)"
+                        aria-label="Show password">👁</button>
+            </div>
+        </div>
+
+        <button type="submit" class="register-button">
+            Create My Account ✨
+        </button>
+
+    </form>
+
+    <p class="bottom-text">
+        Already have an account?
+        <a href="{{ url_for('login') }}">Log in here</a>
+    </p>
+
+    <!-- Corrected home link -->
+    <a href="/" class="back-home">
+        ← Back to Home
+    </a>
+
+</div>
+
+<script>
+    function togglePassword(fieldId, eyeIcon) {
+        const passwordField = document.getElementById(fieldId);
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            eyeIcon.textContent = "🙈";
+        } else {
+            passwordField.type = "password";
+            eyeIcon.textContent = "👁";
+        }
+    }
+
+    function registerStudent(event) {
+        const studentNumber = document.getElementById("student-number").value.trim();
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirm-password").value;
+
+        if (!/^\d{8}$/.test(studentNumber)) {
+            event.preventDefault();
+            alert("Please enter exactly 8 numbers for your student number.");
+            return false;
+        }
+
+        const strongPassword =
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/;
+
+        if (!strongPassword.test(password)) {
+            event.preventDefault();
+            alert("Password must have at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character.");
+            return false;
+        }
+
+        if (password !== confirmPassword) {
+            event.preventDefault();
+            alert("Your passwords do not match. Please try again.");
+            return false;
+        }
+
+        return true;
+    }
+</script>
+
+</body>
+</html>
